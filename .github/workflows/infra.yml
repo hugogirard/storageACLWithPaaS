@@ -1,7 +1,12 @@
 name: Create Azure Resources
 
 on:
+  push:
+    paths:
+      - 'infra/**'    
+      - '.github/workflows/infra.yml'
   workflow_dispatch:    
+
 
 jobs:
   create-azure-resources:
