@@ -36,7 +36,7 @@ param subnetJumpboxaddressPrefix string
 //   'SecurityControl': 'Ignore'
 // }
 
-// var suffix = uniqueString(rgSpoke.id)
+var suffix = replace((rgSpoke.id), '-', '')
 
 resource rgSpoke 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: spokeResourceGroupName
@@ -67,6 +67,15 @@ module hubVnet 'core/network/hub.bicep' = {
     addressPrefixe: hubVnetAddressPrefix
     subnetFirewalladdressPrefix: subnetFirewalladdressPrefix
     subnetJumpboxaddressPrefix: subnetJumpboxaddressPrefix
+  }
+}
+
+module storage 'storage/storage.bicep' = {
+  name: 'storage'
+  scope: rgSpoke
+  params: {
+    location: location
+    storageName: 'str${suffix}'
   }
 }
 
