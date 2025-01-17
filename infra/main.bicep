@@ -85,7 +85,7 @@ module storage 'core/storage/storage.bicep' = {
 
 module privateDnsZoneStorage 'core/DNS/storage.dns.zone.bicep' = {
   name: 'dnszonestorage'
-  scope: rgSpoke
+  scope: rgHub
   params: {
     privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName
     privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
@@ -121,12 +121,12 @@ module storagePrivateEndpoint 'core/DNS/storage.record.bicep' = {
   }
 }
 
-// module ase 'core/ase/ase.bicep' = {
-//   scope: rg
-//   name: 'ase'
-//   params: {
-//     location: location
-//     subnetId: vnet.outputs.subnetId
-//     aseName: 'ase-${suffix}'
-//   }
-// }
+module ase 'core/ase/ase.bicep' = {
+  scope: rgSpoke
+  name: 'ase'
+  params: {
+    location: location
+    subnetId: spokeVnet.outputs.subnetASEId
+    aseName: 'ase-${suffix}'
+  }
+}
