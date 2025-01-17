@@ -32,11 +32,11 @@ param subnetFirewalladdressPrefix string
 @description('Address prefix for the subnet that will contain the jumpbox')
 param subnetJumpboxaddressPrefix string
 
-var tags = {
-  'SecurityControl': 'Ignore'
-}
+// var tags = {
+//   'SecurityControl': 'Ignore'
+// }
 
-var suffix = uniqueString(rgSpoke.id)
+// var suffix = uniqueString(rgSpoke.id)
 
 resource rgSpoke 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: spokeResourceGroupName
