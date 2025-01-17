@@ -34,8 +34,8 @@ jobs:
           scope: subscription
           region: ${{ env.REGION }}
           deploymentName:  ${{ github.run_id }}
-          template: ./bicep/main.json
-          parameters: ./bicep/main.bicepparram
+          template: ./infra/main.json
+          parameters: ./infra/main.bicepparram
                         
 
 
