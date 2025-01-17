@@ -106,6 +106,21 @@ module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
   }
 }
 
+module storagePrivateEndpoint 'core/DNS/storage.record.bicep' = {
+  scope: rgSpoke
+  name: 'recordstorage'
+  params: {
+    location: location
+    privateStorageBlobDnsZoneId: privateDnsZoneStorage.outputs.privateStorageBlobDnsZoneId
+    privateStorageFileDnsZoneId: privateDnsZoneStorage.outputs.privateStorageFileDnsZoneId
+    privateStorageQueueDnsZoneId: privateDnsZoneStorage.outputs.privateStorageQueueDnsZoneId
+    privateStorageTableDnsZoneId: privateDnsZoneStorage.outputs.privateStorageTableDnsZoneId
+    storageId: storage.outputs.storageId
+    storageName: storage.outputs.storageName
+    subnetId: spokeVnet.outputs.subnetPEId
+  }
+}
+
 // module ase 'core/ase/ase.bicep' = {
 //   scope: rg
 //   name: 'ase'
