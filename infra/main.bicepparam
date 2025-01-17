@@ -12,8 +12,8 @@ param location = 'canadacentral'
 
 param spokeResourceGroupName = 'rg-spoke-ase'
 
-param subnetASEAddressPrefix = '10.1.0.0/16'
+param subnetASEAddressPrefix = '11.0.0.0/16'
 
-param subnetPEAddressPrefix = '10.1.1.0/24'
+param subnetPEAddressPrefix = '11.1.0.0/24'
 
-param vnetASEAddressPrefix = '10.1.2.0/24'
+param vnetASEAddressPrefix = '11.2.0.0/24'
