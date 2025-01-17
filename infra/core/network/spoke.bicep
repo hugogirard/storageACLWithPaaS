@@ -1,6 +1,7 @@
 param location string
 param vnetAddressPrefix string
-param subnetAddressPrefix string
+param subnetASEAddressPrefix string
+param subnetPEAddressPrefix string
 
 resource nsgAse 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   name: 'nsg-ase'
@@ -24,6 +25,14 @@ resource nsgAse 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   }
 }
 
+resource nsgPe 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
+  name: 'nsg-pe'
+  location: location
+  properties: {
+    securityRules: []
+  }
+}
+
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: 'vnet-ase'
   location: location
@@ -37,7 +46,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
       {
         name: 'snet-ase'
         properties: {
-          addressPrefix: subnetAddressPrefix
+          addressPrefix: subnetASEAddressPrefix
           delegations: [
             {
               name: 'Microsoft.Web.hostingEnvironments'
@@ -51,6 +60,17 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
           networkSecurityGroup: {
             id: nsgAse.id
           }
+        }
+      }
+      {
+        name: 'snet-pe'
+        properties: {
+          addressPrefix: subnetPEAddressPrefix
+          networkSecurityGroup: {
+            id: nsgPe.id
+          }
+          privateLinkServiceNetworkPolicies: 'Enabled'
+          privateEndpointNetworkPolicies: 'Disabled'
         }
       }
     ]
