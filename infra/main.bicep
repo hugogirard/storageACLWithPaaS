@@ -37,6 +37,10 @@ param subnetJumpboxaddressPrefix string
 // }
 
 var suffix = replace(uniqueString(rgSpoke.id), '-', '')
+var privateStorageFileDnsZoneName = 'privatelink.file.${environment().suffixes.storage}'
+var privateStorageBlobDnsZoneName = 'privatelink.blob.${environment().suffixes.storage}'
+var privateStorageQueueDnsZoneName = 'privatelink.queue.${environment().suffixes.storage}'
+var privateStorageTableDnsZoneName = 'privatelink.table.${environment().suffixes.storage}'
 
 resource rgSpoke 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: spokeResourceGroupName
@@ -70,12 +74,23 @@ module hubVnet 'core/network/hub.bicep' = {
   }
 }
 
-module storage 'storage/storage.bicep' = {
+module storage 'core/storage/storage.bicep' = {
   name: 'storage'
   scope: rgSpoke
   params: {
     location: location
     storageName: 'str${suffix}'
+  }
+}
+
+module privateDnsZoneStorage 'core/DNS/storage.dns.zone.bicep' = {
+  name: 'dnszonestorage'
+  scope: rgSpoke
+  params: {
+    privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName
+    privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
+    privateStorageQueueDnsZoneName: privateStorageQueueDnsZoneName
+    privateStorageTableDnsZoneName: privateStorageTableDnsZoneName
   }
 }
 
