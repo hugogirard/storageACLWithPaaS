@@ -94,6 +94,18 @@ module privateDnsZoneStorage 'core/DNS/storage.dns.zone.bicep' = {
   }
 }
 
+module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
+  scope: rgSpoke
+  name: 'virtualLinkstorage'
+  params: {
+    privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName
+    privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
+    privateStorageQueueDnsZoneName: privateStorageQueueDnsZoneName
+    privateStorageTableDnsZoneName: privateStorageTableDnsZoneName
+    vnetId: spokeVnet.outputs.vnetId
+  }
+}
+
 // module ase 'core/ase/ase.bicep' = {
 //   scope: rg
 //   name: 'ase'
