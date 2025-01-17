@@ -36,7 +36,7 @@ param subnetJumpboxaddressPrefix string
 //   'SecurityControl': 'Ignore'
 // }
 
-var suffix = replace((rgSpoke.id), '-', '')
+var suffix = replace(uniqueString(rgSpoke.id), '-', '')
 
 resource rgSpoke 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: spokeResourceGroupName
