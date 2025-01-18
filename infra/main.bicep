@@ -33,7 +33,7 @@ param subnetFirewalladdressPrefix string
 param subnetJumpboxaddressPrefix string
 
 var tags = {
-  'SecurityControl': 'Ignore'
+  SecurityControl: 'Ignore'
 }
 
 var suffix = replace(uniqueString(rgSpoke.id), '-', '')
@@ -103,7 +103,8 @@ module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
     privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
     privateStorageQueueDnsZoneName: privateStorageQueueDnsZoneName
     privateStorageTableDnsZoneName: privateStorageTableDnsZoneName
-    vnetId: spokeVnet.outputs.vnetId
+    vnetName: spokeVnet.outputs.vnetName
+    spokeRgName: rgSpoke.name
   }
 }
 

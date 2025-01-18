@@ -2,7 +2,13 @@ param privateStorageFileDnsZoneName string
 param privateStorageBlobDnsZoneName string
 param privateStorageQueueDnsZoneName string
 param privateStorageTableDnsZoneName string
-param vnetId string
+param vnetName string
+param spokeRgName string
+
+resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
+  name: vnetName
+  scope: resourceGroup(spokeRgName)
+}
 
 resource privateStorageFileDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' existing = {
   name: privateStorageFileDnsZoneName
@@ -32,7 +38,7 @@ resource privateStorageFileDnsZoneName_virtualNetworkLinksSuffixFileStorage 'Mic
   properties: {
     registrationEnabled: false
     virtualNetwork: {
-      id: vnetId
+      id: vnet.id
     }
   }
 }
@@ -44,7 +50,7 @@ resource privateStorageBlobDnsZoneName_virtualNetworkLinksSuffixBlobStorage 'Mic
   properties: {
     registrationEnabled: false
     virtualNetwork: {
-      id: vnetId
+      id: vnet.id
     }
   }
 }
@@ -56,7 +62,7 @@ resource privateStorageQueueDnsZoneName_virtualNetworkLinksSuffixQueueStorage 'M
   properties: {
     registrationEnabled: false
     virtualNetwork: {
-      id: vnetId
+      id: vnet.id
     }
   }
 }
@@ -68,7 +74,7 @@ resource privateStorageTableDnsZoneName_virtualNetworkLinksSuffixTableStorage 'M
   properties: {
     registrationEnabled: false
     virtualNetwork: {
-      id: vnetId
+      id: vnet.id
     }
   }
 }
