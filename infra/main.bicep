@@ -137,3 +137,14 @@ module ase 'core/ase/ase.bicep' = {
     vnetId: spokeVnet.outputs.vnetId
   }
 }
+
+module firewall 'core/firewall/firewall.bicep' = {
+  scope: rgHub
+  name: 'firewall'
+  params: {
+    suffix: suffix
+    location: location
+    subnetId: hubVnet.outputs.firewallSubnetId
+    managementSubnetId: hubVnet.outputs.managementFirewallSubnetId
+  }
+}

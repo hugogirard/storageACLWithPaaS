@@ -46,3 +46,8 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
     ]
   }
 }
+
+output vnetName string = vnet.name
+output firewallSubnetId string = vnet.properties.subnets[0].id
+output managementFirewallSubnetId string = vnet.properties.subnets[1].id
+output jumpboxSubnetId string = vnet.properties.subnets[2].id
