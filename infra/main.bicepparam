@@ -19,3 +19,7 @@ param subnetASEAddressPrefix = '11.0.1.0/24'
 param subnetPEAddressPrefix = '11.0.2.0/24'
 
 param vnetASEAddressPrefix = '11.0.0.0/16'
+
+param adminPassword = '__adminPassword__'
+
+param adminUsername = '__adminUsername__'

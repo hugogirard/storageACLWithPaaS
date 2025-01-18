@@ -7,6 +7,8 @@ resource datalake 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   properties: {
     allowBlobPublicAccess: false
     publicNetworkAccess: 'Disabled'
+    isHnsEnabled: true
+    isSftpEnabled: false
     networkAcls: {
       defaultAction: 'Deny'
       bypass: 'AzureServices'

@@ -10,6 +10,12 @@ param spokeResourceGroupName string
 @description('Resource group name for the hub')
 param hubResourceGroupName string
 
+@secure()
+param adminUsername string
+
+@secure()
+param adminPassword string
+
 @minLength(1)
 @description('Primary location for all resources')
 param location string
@@ -166,5 +172,16 @@ module firewall 'core/firewall/firewall.bicep' = {
     location: location
     subnetId: hubVnet.outputs.firewallSubnetId
     managementSubnetId: hubVnet.outputs.managementFirewallSubnetId
+  }
+}
+
+module jumpbox 'core/compute/jumpbox.bicep' = {
+  scope: rgHub
+  name: 'jumpbox'
+  params: {
+    location: location
+    adminPassword: adminPassword
+    adminUsername: adminUsername
+    subnetId: hubVnet.outputs.jumpboxSubnetId
   }
 }
