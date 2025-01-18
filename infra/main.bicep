@@ -112,7 +112,7 @@ module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
   }
 }
 
-module storagePrivateEndpoint 'core/DNS/storage.record.bicep' = {
+module storagePrivateEndpoint 'core/DNS/storage.privateEndpoint.bicep' = {
   scope: rgSpoke
   name: 'recordstorage'
   params: {
@@ -124,6 +124,17 @@ module storagePrivateEndpoint 'core/DNS/storage.record.bicep' = {
     storageId: storage.outputs.storageId
     storageName: storage.outputs.storageName
     subnetId: spokeVnet.outputs.subnetPEId
+  }
+}
+
+// Register all A record
+
+module aRecordBlob 'core/DNS/storage.record.bicep' = {
+  scope: rgHub
+  name: 'aRecordBlob'
+  params: {
+    dnsName: privateDnsZoneStorage.outputs.privateStorageBlobDnsZoneName
+    privateEndpointIP: storagePrivateEndpoint.outputs.privateEndpointBlobIP
   }
 }
 

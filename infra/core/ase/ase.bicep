@@ -70,3 +70,5 @@ resource aRecordAse 'Microsoft.Network/privateDnsZones/A@2020-06-01' = {
     ]
   }
 }
+
+output dnsName string = dns.name

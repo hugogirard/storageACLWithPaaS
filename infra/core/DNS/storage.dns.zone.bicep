@@ -27,3 +27,8 @@ output privateStorageFileDnsZoneId string = privateStorageFileDnsZone.id
 output privateStorageBlobDnsZoneId string = privateStorageBlobDnsZone.id
 output privateStorageQueueDnsZoneId string = privateStorageQueueDnsZone.id
 output privateStorageTableDnsZoneId string = privateStorageTableDnsZone.id
+
+output privateStorageFileDnsZoneName string = privateStorageFileDnsZone.name
+output privateStorageBlobDnsZoneName string = privateStorageBlobDnsZone.name
+output privateStorageQueueDnsZoneName string = privateStorageQueueDnsZone.name
+output privateStorageTableDnsZoneName string = privateStorageTableDnsZone.name
