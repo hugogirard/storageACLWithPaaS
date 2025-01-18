@@ -44,7 +44,7 @@ resource jumpbox 'Microsoft.Compute/virtualMachines@2020-06-01' = {
   location: location
   properties: {
     hardwareProfile: {
-      vmSize: 'Standard_B1ms'
+      vmSize: 'Standard_B4ms'
     }
     osProfile: {
       computerName: 'jumpbox'
