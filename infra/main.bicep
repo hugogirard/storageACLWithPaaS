@@ -41,6 +41,9 @@ param subnetManagementFirewalladdressPrefix string
 @description('Address prefix for the subnet that will contain the jumpbox')
 param subnetJumpboxaddressPrefix string
 
+@description('Create a logic app and ASP plan related to it')
+param createLogicApp bool
+
 var tags = {
   SecurityControl: 'Ignore'
 }
@@ -183,5 +186,24 @@ module jumpbox 'core/compute/jumpbox.bicep' = {
     adminPassword: adminPassword
     adminUsername: adminUsername
     subnetId: hubVnet.outputs.jumpboxSubnetId
+  }
+}
+
+module logging 'core/monitoring/appinsight.bicep' = {
+  scope: rgSpoke
+  name: 'logging'
+  params: {
+    suffix: suffix
+    location: location
+  }
+}
+
+module asp 'core/web/app.service.plan.bicep' = {
+  scope: rgHub
+  name: 'asp'
+  params: {
+    suffix: suffix
+    location: location
+    aseId: ase.outputs.aseId
   }
 }

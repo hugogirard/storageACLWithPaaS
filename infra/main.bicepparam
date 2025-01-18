@@ -23,3 +23,5 @@ param vnetASEAddressPrefix = '11.0.0.0/16'
 param adminPassword = '__adminPassword__'
 
 param adminUsername = '__adminUsername__'
+
+param createLogicApp = true
