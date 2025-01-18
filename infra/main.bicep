@@ -88,6 +88,15 @@ module storage 'core/storage/storage.bicep' = {
   }
 }
 
+module datalake 'core/storage/datalake.bicep' = {
+  scope: rgSpoke
+  name: 'datalake'
+  params: {
+    name: 'dl${suffix}'
+    location: location
+  }
+}
+
 module privateDnsZoneStorage 'core/DNS/storage.dns.zone.bicep' = {
   name: 'dnszonestorage'
   scope: rgHub
@@ -129,14 +138,14 @@ module storagePrivateEndpoint 'core/DNS/storage.privateEndpoint.bicep' = {
 
 // Register all A record
 
-module aRecordBlob 'core/DNS/storage.record.bicep' = {
-  scope: rgHub
-  name: 'aRecordBlob'
-  params: {
-    dnsName: privateDnsZoneStorage.outputs.privateStorageBlobDnsZoneName
-    privateEndpointIP: storagePrivateEndpoint.outputs.privateEndpointBlobIP
-  }
-}
+// module aRecordBlob 'core/DNS/storage.record.bicep' = {
+//   scope: rgHub
+//   name: 'aRecordBlob'
+//   params: {
+//     dnsName: privateDnsZoneStorage.outputs.privateStorageBlobDnsZoneName
+//     privateEndpointIP: storagePrivateEndpoint.outputs.privateEndpointBlobIP
+//   }
+// }
 
 module ase 'core/ase/ase.bicep' = {
   scope: rgSpoke
