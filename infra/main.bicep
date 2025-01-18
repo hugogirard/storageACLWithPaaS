@@ -99,18 +99,18 @@ module privateDnsZoneStorage 'core/DNS/storage.dns.zone.bicep' = {
   }
 }
 
-// module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
-//   scope: rgHub
-//   name: 'virtualLinkstorage'
-//   params: {
-//     privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName
-//     privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
-//     privateStorageQueueDnsZoneName: privateStorageQueueDnsZoneName
-//     privateStorageTableDnsZoneName: privateStorageTableDnsZoneName
-//     vnetName: spokeVnet.outputs.vnetName
-//     spokeRgName: rgSpoke.name
-//   }
-// }
+module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
+  scope: rgHub
+  name: 'virtualLinkstorage'
+  params: {
+    privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName
+    privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
+    privateStorageQueueDnsZoneName: privateStorageQueueDnsZoneName
+    privateStorageTableDnsZoneName: privateStorageTableDnsZoneName
+    vnetName: spokeVnet.outputs.vnetName
+    spokeRgName: rgSpoke.name
+  }
+}
 
 module storagePrivateEndpoint 'core/DNS/storage.record.bicep' = {
   scope: rgSpoke
