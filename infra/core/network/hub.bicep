@@ -1,6 +1,7 @@
 param location string
 param addressPrefixe string
 param subnetFirewalladdressPrefix string
+param subnetManagementFirewalladdressPrefix string
 param subnetJumpboxaddressPrefix string
 
 resource nsgJumpbox 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
@@ -25,6 +26,12 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
         name: 'AzureFirewallSubnet'
         properties: {
           addressPrefix: subnetFirewalladdressPrefix
+        }
+      }
+      {
+        name: 'AzureFirewallManagementSubnet'
+        properties: {
+          addressPrefix: subnetManagementFirewalladdressPrefix
         }
       }
       {

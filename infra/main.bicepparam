@@ -4,7 +4,9 @@ param hubResourceGroupName = 'rg-hub-ase'
 
 param hubVnetAddressPrefix = '10.0.0.0/16'
 
-param subnetFirewalladdressPrefix = '10.0.1.0/24'
+param subnetFirewalladdressPrefix = '10.0.1.0/26'
+
+param subnetManagementFirewalladdressPrefix = '10.0.2.0/24'
 
 param subnetJumpboxaddressPrefix = '10.0.3.0/28'
 

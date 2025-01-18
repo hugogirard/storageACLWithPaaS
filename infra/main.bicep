@@ -29,6 +29,9 @@ param hubVnetAddressPrefix string
 @description('Address prefix for the subnet that will contain the firewall')
 param subnetFirewalladdressPrefix string
 
+@description('Address prefix for the subnet that will contain the management firewall')
+param subnetManagementFirewalladdressPrefix string
+
 @description('Address prefix for the subnet that will contain the jumpbox')
 param subnetJumpboxaddressPrefix string
 
@@ -71,6 +74,7 @@ module hubVnet 'core/network/hub.bicep' = {
     addressPrefixe: hubVnetAddressPrefix
     subnetFirewalladdressPrefix: subnetFirewalladdressPrefix
     subnetJumpboxaddressPrefix: subnetJumpboxaddressPrefix
+    subnetManagementFirewalladdressPrefix: subnetManagementFirewalladdressPrefix
   }
 }
 
@@ -95,18 +99,18 @@ module privateDnsZoneStorage 'core/DNS/storage.dns.zone.bicep' = {
   }
 }
 
-module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
-  scope: rgHub
-  name: 'virtualLinkstorage'
-  params: {
-    privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName
-    privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
-    privateStorageQueueDnsZoneName: privateStorageQueueDnsZoneName
-    privateStorageTableDnsZoneName: privateStorageTableDnsZoneName
-    vnetName: spokeVnet.outputs.vnetName
-    spokeRgName: rgSpoke.name
-  }
-}
+// module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
+//   scope: rgHub
+//   name: 'virtualLinkstorage'
+//   params: {
+//     privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName
+//     privateStorageFileDnsZoneName: privateStorageFileDnsZoneName
+//     privateStorageQueueDnsZoneName: privateStorageQueueDnsZoneName
+//     privateStorageTableDnsZoneName: privateStorageTableDnsZoneName
+//     vnetName: spokeVnet.outputs.vnetName
+//     spokeRgName: rgSpoke.name
+//   }
+// }
 
 module storagePrivateEndpoint 'core/DNS/storage.record.bicep' = {
   scope: rgSpoke
