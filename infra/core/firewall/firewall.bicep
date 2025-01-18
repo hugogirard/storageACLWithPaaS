@@ -14,6 +14,17 @@ resource pip 'Microsoft.Network/publicIPAddresses@2024-05-01' = {
   }
 }
 
+resource pipmgt 'Microsoft.Network/publicIPAddresses@2024-05-01' = {
+  name: 'pip-fw-mgt-${suffix}'
+  location: location
+  sku: {
+    name: 'Standard'
+  }
+  properties: {
+    publicIPAllocationMethod: 'Static'
+  }
+}
+
 resource fwPolicy 'Microsoft.Network/firewallPolicies@2024-05-01' = {
   name: 'fw-policy-${suffix}'
   location: location
@@ -48,7 +59,7 @@ resource fw 'Microsoft.Network/azureFirewalls@2024-05-01' = {
           id: managementSubnetId
         }
         publicIPAddress: {
-          id: pip.id
+          id: pipmgt.id
         }
       }
     }
