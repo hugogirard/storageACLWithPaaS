@@ -134,5 +134,6 @@ module ase 'core/ase/ase.bicep' = {
     location: location
     subnetId: spokeVnet.outputs.subnetASEId
     aseName: 'ase-${suffix}'
+    vnetId: spokeVnet.outputs.vnetId
   }
 }

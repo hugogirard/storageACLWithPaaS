@@ -1,6 +1,7 @@
 param aseName string
 param location string
 param subnetId string
+param vnetId string
 
 resource asev3 'Microsoft.Web/hostingEnvironments@2024-04-01' = {
   name: aseName
@@ -25,7 +26,7 @@ resource networkLinkSpoke 'Microsoft.Network/privateDnsZones/virtualNetworkLinks
   location: 'global'
   properties: {
     virtualNetwork: {
-      id: subnetId
+      id: vnetId
     }
     registrationEnabled: false
   }
