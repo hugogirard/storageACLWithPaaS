@@ -32,9 +32,9 @@ param subnetFirewalladdressPrefix string
 @description('Address prefix for the subnet that will contain the jumpbox')
 param subnetJumpboxaddressPrefix string
 
-// var tags = {
-//   'SecurityControl': 'Ignore'
-// }
+var tags = {
+  'SecurityControl': 'Ignore'
+}
 
 var suffix = replace(uniqueString(rgSpoke.id), '-', '')
 var privateStorageFileDnsZoneName = 'privatelink.file.${environment().suffixes.storage}'
@@ -80,6 +80,7 @@ module storage 'core/storage/storage.bicep' = {
   params: {
     location: location
     storageName: 'str${suffix}'
+    tags: tags
   }
 }
 
@@ -95,7 +96,7 @@ module privateDnsZoneStorage 'core/DNS/storage.dns.zone.bicep' = {
 }
 
 module storageVirtualLink 'core/DNS/storage.virtual.link.bicep' = {
-  scope: rgSpoke
+  scope: rgHub
   name: 'virtualLinkstorage'
   params: {
     privateStorageBlobDnsZoneName: privateStorageBlobDnsZoneName

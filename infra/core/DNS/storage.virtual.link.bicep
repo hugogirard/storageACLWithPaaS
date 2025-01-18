@@ -25,7 +25,7 @@ var virtualNetworkLinksSuffixBlobStorageName = '${privateStorageBlobDnsZoneName}
 var virtualNetworkLinksSuffixQueueStorageName = '${privateStorageQueueDnsZoneName}-link'
 var virtualNetworkLinksSuffixTableStorageName = '${privateStorageTableDnsZoneName}-link'
 
-resource privateStorageFileDnsZoneName_virtualNetworkLinksSuffixFileStorage 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+resource privateStorageFileDnsZoneName_virtualNetworkLinksSuffixFileStorage 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {
   parent: privateStorageFileDnsZone
   name: virtualNetworkLinksSuffixFileStorageName
   location: 'global'

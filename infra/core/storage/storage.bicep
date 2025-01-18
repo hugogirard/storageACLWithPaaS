@@ -1,5 +1,6 @@
 param storageName string
 param location string
+param tags object = {}
 
 resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: storageName
@@ -7,6 +8,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   sku: {
     name: 'Standard_LRS'
   }
+  tags: tags
   kind: 'StorageV2'
   properties: {
     publicNetworkAccess: 'Disabled'
